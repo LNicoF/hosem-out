@@ -1,0 +1,151 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scenes/Hole/Hole.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Main/Main.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Hose/Hose.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Tunnel/Tunnel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Plant/Plant.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sprites/carrot.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/rabanito.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/verdeo.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/UI/UI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/sounds/music/bg music.mp3" type="AudioStream" id=10]
+[ext_resource path="res://assets/sprites/Onion.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/Nabo.png" type="Texture" id=12]
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 600.0 ]
+}
+
+[node name="BG" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sky" type="ColorRect" parent="BG"]
+margin_right = 1080.0
+margin_bottom = 600.0
+color = Color( 0.678431, 1, 0.933333, 1 )
+
+[node name="Sky2" type="ColorRect" parent="BG"]
+margin_top = 600.0
+margin_right = 1080.0
+margin_bottom = 1920.0
+color = Color( 0.807843, 0.509804, 0, 1 )
+
+[node name="Holes" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Hole1" parent="Holes" instance=ExtResource( 1 )]
+position = Vector2( 240, 600 )
+
+[node name="Hole2" parent="Holes" instance=ExtResource( 1 )]
+position = Vector2( 420, 600 )
+
+[node name="Hole3" parent="Holes" instance=ExtResource( 1 )]
+position = Vector2( 600, 600 )
+
+[node name="Hole4" parent="Holes" instance=ExtResource( 1 )]
+position = Vector2( 780, 600 )
+
+[node name="Hose" parent="." instance=ExtResource( 3 )]
+position = Vector2( 87, -30 )
+z_index = 1
+
+[node name="Tunnels" type="Node2D" parent="."]
+position = Vector2( 3.05176e-05, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tunnel3" parent="Tunnels" instance=ExtResource( 4 )]
+position = Vector2( 180, 660 )
+rotation = -1.93731
+scale = Vector2( 1, -1 )
+distance = 1500
+
+[node name="Tunnel4" parent="Tunnels" instance=ExtResource( 4 )]
+position = Vector2( 360, 660 )
+rotation = -2.62847
+scale = Vector2( 1, -1 )
+distance = 1000
+
+[node name="Tunnel5" parent="Tunnels" instance=ExtResource( 4 )]
+position = Vector2( 540, 660 )
+rotation = 0.858702
+scale = Vector2( -1, 1 )
+distance = 1100
+
+[node name="Tunnel2" parent="Tunnels" instance=ExtResource( 4 )]
+position = Vector2( 720, 660 )
+rotation = -0.753982
+distance = 1200
+
+[node name="Tunnel1" parent="Tunnels" instance=ExtResource( 4 )]
+position = Vector2( 900, 660 )
+rotation = -0.523599
+distance = 1200
+
+[node name="Plants" type="Node2D" parent="."]
+
+[node name="Plant1" parent="Plants" instance=ExtResource( 5 )]
+position = Vector2( 180, 600 )
+texture = ExtResource( 6 )
+
+[node name="Plant2" parent="Plants" instance=ExtResource( 5 )]
+position = Vector2( 360, 600 )
+texture = ExtResource( 7 )
+index = 1
+
+[node name="Plant3" parent="Plants" instance=ExtResource( 5 )]
+position = Vector2( 540, 600 )
+texture = ExtResource( 8 )
+index = 2
+
+[node name="Plant4" parent="Plants" instance=ExtResource( 5 )]
+position = Vector2( 720, 600 )
+texture = ExtResource( 12 )
+index = 3
+
+[node name="Plant5" parent="Plants" instance=ExtResource( 5 )]
+position = Vector2( 900, 600 )
+texture = ExtResource( 11 )
+index = 4
+
+[node name="UI" parent="." instance=ExtResource( 9 )]
+margin_right = 1080.0
+margin_bottom = 1920.0
+mouse_filter = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -10.0
+autoplay = true
+
+[connection signal="holeReleased" from="Holes/Hole1" to="." method="_on_Hole_holeReleased"]
+[connection signal="holeSelected" from="Holes/Hole1" to="." method="_on_Hole_holeSelected"]
+[connection signal="holeReleased" from="Holes/Hole2" to="." method="_on_Hole_holeReleased"]
+[connection signal="holeSelected" from="Holes/Hole2" to="." method="_on_Hole_holeSelected"]
+[connection signal="holeReleased" from="Holes/Hole3" to="." method="_on_Hole_holeReleased"]
+[connection signal="holeSelected" from="Holes/Hole3" to="." method="_on_Hole_holeSelected"]
+[connection signal="holeReleased" from="Holes/Hole4" to="." method="_on_Hole_holeReleased"]
+[connection signal="holeSelected" from="Holes/Hole4" to="." method="_on_Hole_holeSelected"]
+[connection signal="atePlant" from="Tunnels/Tunnel3" to="." method="_on_Tunnel_atePlant"]
+[connection signal="bodyEntered" from="Tunnels/Tunnel3" to="." method="_on_Tunnel_bodyEntered"]
+[connection signal="finishedAttack" from="Tunnels/Tunnel3" to="." method="_on_Tunnel_finishedAttack"]
+[connection signal="atePlant" from="Tunnels/Tunnel4" to="." method="_on_Tunnel_atePlant"]
+[connection signal="bodyEntered" from="Tunnels/Tunnel4" to="." method="_on_Tunnel_bodyEntered"]
+[connection signal="finishedAttack" from="Tunnels/Tunnel4" to="." method="_on_Tunnel_finishedAttack"]
+[connection signal="atePlant" from="Tunnels/Tunnel5" to="." method="_on_Tunnel_atePlant"]
+[connection signal="bodyEntered" from="Tunnels/Tunnel5" to="." method="_on_Tunnel_bodyEntered"]
+[connection signal="finishedAttack" from="Tunnels/Tunnel5" to="." method="_on_Tunnel_finishedAttack"]
+[connection signal="atePlant" from="Tunnels/Tunnel2" to="." method="_on_Tunnel_atePlant"]
+[connection signal="bodyEntered" from="Tunnels/Tunnel2" to="." method="_on_Tunnel_bodyEntered"]
+[connection signal="finishedAttack" from="Tunnels/Tunnel2" to="." method="_on_Tunnel_finishedAttack"]
+[connection signal="atePlant" from="Tunnels/Tunnel1" to="." method="_on_Tunnel_atePlant"]
+[connection signal="bodyEntered" from="Tunnels/Tunnel1" to="." method="_on_Tunnel_bodyEntered"]
+[connection signal="finishedAttack" from="Tunnels/Tunnel1" to="." method="_on_Tunnel_finishedAttack"]

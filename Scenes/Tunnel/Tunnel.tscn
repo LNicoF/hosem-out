@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Tunnel/Tunnel.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Rabbit/Rabbit.tscn" type="PackedScene" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 960, 45 )
+
+[node name="Tunnel" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Body" type="KinematicBody2D" parent="."]
+
+[node name="Sprite" type="Polygon2D" parent="Body"]
+position = Vector2( -1075.91, -0.249991 )
+scale = Vector2( 7.54486, 1.805 )
+color = Color( 0.317647, 0.0509804, 0, 1 )
+polygon = PoolVector2Array( -100, -50, -100, 50, 24.5711, 50, 141.94, 50, 150.422, 35, 154.531, -0.415514, 149.76, -35, 141.542, -50 )
+
+[node name="Area2D" type="Area2D" parent="Body"]
+__meta__ = {
+"_edit_horizontal_guides_": [ -90.0, 90.0 ],
+"_edit_vertical_guides_": [ -1830.0, 90.0 ]
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Area2D"]
+position = Vector2( -871, 0 )
+shape = SubResource( 1 )
+
+[node name="Rabbit" parent="Body" instance=ExtResource( 2 )]
+position = Vector2( -450, 0 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Body"]
+polygon = PoolVector2Array( 47, 76, -1850, 89, -2043, 215, -2159, 103, -2129, -123, -1984, -237, -1893, -207, -1850, -119, -1984, -240, -2203, -234, -2253, 146, -2146, 352, -1840, 245, -1157, 194, -464, 160, -120.412, 103.52 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="Body/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="atePlant" from="Body/Rabbit" to="." method="_on_Rabbit_atePlant"]
+[connection signal="exitedScreen" from="Body/Rabbit" to="." method="_on_Rabbit_exitedScreen"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
